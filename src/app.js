@@ -1,17 +1,23 @@
 const express = require('express');
 const connectDB = require('./config/database');
-const userSchema = require('./models/user');
+const User = require('./models/user');
 
 const app = express();
+
+app.use(express.json())
+
 // const { adminAuth } = require('./middleware/auth')
 
-app.post("/user", async (req, res) => {
-    const user = userSchema({
-        firstName:'Virat',
-        lastName: "Kohli",
-        emailId: "umesh@gmail.com",
-        password: 'umesh12345'
-    })
+app.post("/signup", async (req, res) => {
+    
+    // const user = userSchema({
+    //     firstName:'Virat',
+    //     lastName: "Kohli",
+    //     emailId: "umesh@gmail.com",
+    //     password: 'umesh12345'
+    // })
+
+    const user = new User(req.body)
     await user.save();
     res.send('Data Sent Successfully');
 })
