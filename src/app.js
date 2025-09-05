@@ -2,7 +2,6 @@ const express = require('express');
 const connectDB = require('./config/database');
 const userSchema = require('./models/user');
 
-
 const app = express();
 // const { adminAuth } = require('./middleware/auth')
 
