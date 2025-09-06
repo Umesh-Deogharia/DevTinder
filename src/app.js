@@ -4,22 +4,26 @@ const User = require('./models/user');
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
-// const { adminAuth } = require('./middleware/auth')
+app.get("/user", async (req, res) => {
 
-app.post("/signup", async (req, res) => {
+    const userEmail = req.body.emailId;
+    try {
+        console.log(userEmail);
+        const users =await User.findOne({ emailId: userEmail });
+        // const users =await User.find({ emailId: userEmail });
+        if (users.length===0) {
+            res.send('User Not Found');
+        } else {
+            
+            res.send(users);
+            // await users.save();
+        }
+    } catch (err) {
+        res.status(404).send('Something Went Wrong',err);
+    }
     
-    // const user = userSchema({
-    //     firstName:'Virat',
-    //     lastName: "Kohli",
-    //     emailId: "umesh@gmail.com",
-    //     password: 'umesh12345'
-    // })
-
-    const user = new User(req.body)
-    await user.save();
-    res.send('Data Sent Successfully');
 })
 
 
