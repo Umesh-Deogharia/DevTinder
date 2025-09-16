@@ -21,7 +21,6 @@ authRouter.post("/signup", async (req, res) => {
         console.log(user);
         await user.save();
         res.send(user);
-
         // const users =await User.find({ emailId: userEmail });
         // res.send(users);
         // if (users.length===0) {
@@ -62,6 +61,11 @@ authRouter.post("/login", async (req, res) => {
     } catch (err) {
         res.status(400).send("Error" + err);
     }
+})
+
+authRouter.post('/logout', (req, res) => {
+    res.cookie('token', null, { expires: new Date(Date.now()) });
+    res.send('logout Successfull!!!');
 })
 
 module.exports = authRouter;

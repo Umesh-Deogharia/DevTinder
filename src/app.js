@@ -1,6 +1,6 @@
 const express = require('express');
-const connectDB = require('./config/database');
 const app = express();
+const connectDB = require('./config/database');
 const expressParser = require("cookie-parser");
 const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
@@ -14,6 +14,7 @@ app.use(expressParser());
 app.use('/', authRouter);
 app.use('/', profileRouter);
 app.use('/', requestRouter);
+
 
 
 
@@ -70,7 +71,6 @@ app.get("/feed", async (req, res) => {
     } catch (err) {
         res.status(400).send('Something went wrong');
     }
-
 })
 
 app.delete("/delete", async (req, res) => {
@@ -95,10 +95,6 @@ app.patch("/user", async (req, res) => {
         res.status(400).send(err.message);
     }
 })
-
-
-
-
 
 connectDB().then(() => {
     console.log('Database Connection Established');
